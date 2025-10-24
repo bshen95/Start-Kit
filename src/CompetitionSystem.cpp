@@ -10,16 +10,6 @@ using json = nlohmann::ordered_json;
 
 
 
-
-
-
-// // This function might not work correctly with small map (w or h <=2)
-// bool BaseSystem::valid_moves(vector<State>& prev, vector<Action>& action)
-// {
-//   return model->is_valid(prev, action);
-// }
-
-
 void BaseSystem::sync_shared_env() 
 {
     if (!started)
@@ -38,7 +28,7 @@ void BaseSystem::sync_shared_env()
         }
         //update proposed action to all wait
         proposed_actions.clear();
-        proposed_actions.resize(num_of_agents, Action::W);
+        proposed_actions.resize(num_of_agents, Action::WA);
         //update proposed schedule to previous assignment
         proposed_schedule = env->curr_task_schedule;
         
@@ -223,7 +213,7 @@ void BaseSystem::initialize()
         solution_costs[a] = 0;
     }
 
-    proposed_actions.resize(num_of_agents, Action::W);
+    proposed_actions.resize(num_of_agents, Action::WA);
     proposed_schedule.resize(num_of_agents, -1);
 }
 
@@ -232,7 +222,7 @@ void BaseSystem::saveResults(const string &fileName, int screen) const
 {
     json js;
     // Save action model
-    js["actionModel"] = "MAPF_T";
+    js["actionModel"] = "MAPF";
     js["version"] = "2024 LoRR";
 
     // std::string feasible = fast_mover_feasible ? "Yes" : "No";

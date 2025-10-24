@@ -142,13 +142,13 @@ namespace DefaultPlanner{
                 decided[i].loc = env->curr_states[i].location;
                 assert(decided[i].state == DONE::DONE);
             }
-            if (prev_states[i].location == decided[i].loc){
-                decided[i].state = DONE::DONE;
-            }
-            if (decided[i].state == DONE::NOT_DONE){
-                decision.at(decided[i].loc) = i;
-                next_states[i] = State(decided[i].loc,-1,-1);
-            }
+            // if (prev_states[i].location == decided[i].loc){
+            //     decided[i].state = DONE::DONE;
+            // }
+            // if (decided[i].state == DONE::NOT_DONE){
+            //     decision.at(decided[i].loc) = i;
+            //     next_states[i] = State(decided[i].loc,-1,-1);
+            // }
 
             // reset the pibt priority if the agent reached prvious goal location and switch to new goal location
             if(require_guide_path[i])
@@ -186,9 +186,9 @@ namespace DefaultPlanner{
 
         // compute the targeted next location for each agent using PIBT
         for (int i : ids){
-            if (decided[i].state == DONE::NOT_DONE){
-                continue;
-            }
+            // if (decided[i].state == DONE::NOT_DONE){
+            //     continue;
+            // }
             if (next_states[i].location==-1){
                 assert(prev_states[i].location >=0 && prev_states[i].location < env->map.size());
                 causalPIBT(i,-1,prev_states,next_states,
@@ -216,11 +216,11 @@ namespace DefaultPlanner{
 
         // recursively check if the FW action can be executed by checking whether all agents in the front of the agent can move forward
         // if any agent cannot move foward due to turning, all agents behind the turning agent will not move forward.
-        for (int id=0;id < env->num_of_agents ; id++){
-            if (!checked.at(id) && actions.at(id) == Action::FW){
-                moveCheck(id,checked,decided,actions,prev_decision);
-            }
-        }
+        // for (int id=0;id < env->num_of_agents ; id++){
+        //     if (!checked.at(id) && actions.at(id) == Action::FW){
+        //         moveCheck(id,checked,decided,actions,prev_decision);
+        //     }
+        // }
 
 
 
